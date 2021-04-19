@@ -51,7 +51,7 @@ class DbFire {
 
       if (currentUser != null) {
         print('geschaft');
-        // Navigator.pushReplacement(context, BlocRouter().halloPage(user));
+        Navigator.pushReplacement(context, BlocRouter().halloPage(user));
       } else {
         throw PlatformException(code: errorCode, message: errorMessage);
       }
@@ -61,7 +61,7 @@ class DbFire {
       print(e.code);
 
       Fluttertoast.showToast(
-          msg: 'e.code',
+          msg: ' Error: ${e.code}',
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 2,

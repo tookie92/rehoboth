@@ -22,7 +22,8 @@ class HalloPage extends StatelessWidget {
           stream: bloc.stream,
           builder: (context, snapshot) {
             final truc = snapshot.data;
-            if (truc == null) {
+            // ignore: unnecessary_null_comparison
+            if (snapshot == null && truc == null) {
               return Center(
                 child: Container(
                   child: MyText(
@@ -30,7 +31,7 @@ class HalloPage extends StatelessWidget {
                   ),
                 ),
               );
-            } else if (!snapshot.hasData && snapshot.data != null) {
+            } else if (!snapshot.hasData) {
               return Center(
                 child: Container(
                   child: MyText(
@@ -46,7 +47,7 @@ class HalloPage extends StatelessWidget {
                   ),
                   Container(
                     child: MyText(
-                      label: 'hallo ${truc.user!.displayName}',
+                      label: 'hallo ${truc!.user!.displayName}',
                     ),
                   ),
                   MyTextButton(

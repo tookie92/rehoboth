@@ -11,13 +11,13 @@ class BlocRouter {
       MaterialPageRoute(builder: (context) => signup());
   MaterialPageRoute signinPage() =>
       MaterialPageRoute(builder: (context) => signin());
-  // MaterialPageRoute halloPage(User? u) =>
-  //    MaterialPageRoute(builder: (ctx) => hallo(u));
+  MaterialPageRoute halloPage(User? u) =>
+      MaterialPageRoute(builder: (ctx) => hallo(u));
   MaterialPageRoute homePager() =>
       MaterialPageRoute(builder: (ctx) => homePage());
 
-  // BlocProvider hallo(User? user) =>
-//      BlocProvider<BlocSign>(bloc: BlocSign(), child: HalloPage(user));
+  BlocProvider hallo(User? user) =>
+      BlocProvider<BlocSign>(bloc: BlocSign(), child: HalloPage(user));
   BlocProvider signin() =>
       BlocProvider<BlocSign>(bloc: BlocSign(), child: Signin());
   BlocProvider signup() =>
