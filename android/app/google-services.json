@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "458785457424",
+    "project_id": "amen-63c27",
+    "storage_bucket": "amen-63c27.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:458785457424:android:70599518962422f8c8d195",
+        "android_client_info": {
+          "package_name": "com.example.amen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "458785457424-ltdufnu38v05iqs71g83qsqm9f1r9cmh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWNtXqG_n4HikwIrPx6N4W6L7LSjT7Y6k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "458785457424-ltdufnu38v05iqs71g83qsqm9f1r9cmh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "458785457424-gglqn8meeqtj4t1hu8h1b6r96h9jc2ia.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.amen"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
