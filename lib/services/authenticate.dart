@@ -49,11 +49,10 @@ class DbFire {
           email: emailController, password: passwordController);
       User? user = usercredential.user;
       User? currentUser = _auth.currentUser;
-      CategorieModel? categorieModel;
 
       if (currentUser != null) {
         print('geschaft');
-        Navigator.pushReplacement(context, BlocRouter().halloPage(user));
+        Navigator.pushReplacement(context, BlocRouter().halloPage());
       } else {
         throw PlatformException(code: errorCode, message: errorMessage);
       }

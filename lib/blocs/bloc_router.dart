@@ -2,6 +2,7 @@ import 'package:amen/blocs/bloc_provider.dart';
 import 'package:amen/blocs/blocs.dart';
 import 'package:amen/blocs/blocsign.dart';
 import 'package:amen/models/categorie.dart';
+import 'package:amen/ui/screens/edit_page.dart';
 import 'package:amen/ui/screens/screens.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -12,13 +13,20 @@ class BlocRouter {
       MaterialPageRoute(builder: (context) => signup());
   MaterialPageRoute signinPage() =>
       MaterialPageRoute(builder: (context) => signin());
-  MaterialPageRoute halloPage(User? u) =>
-      MaterialPageRoute(builder: (ctx) => hallo(u));
+  MaterialPageRoute halloPage() => MaterialPageRoute(builder: (ctx) => hallo());
   MaterialPageRoute homePager() =>
       MaterialPageRoute(builder: (ctx) => homePage());
 
-  BlocProvider hallo(User? user) =>
-      BlocProvider<BlocSign>(bloc: BlocSign(), child: HalloPage(user));
+  //probe
+  MaterialPageRoute editcatPage(CategorieModel cat) =>
+      MaterialPageRoute(builder: (context) => editCat(cat));
+
+  BlocProvider editCat(CategorieModel categorieModel) =>
+      BlocProvider<BlocSign>(bloc: BlocSign(), child: EditPage(categorieModel));
+  //probe ende
+
+  BlocProvider hallo() =>
+      BlocProvider<BlocSign>(bloc: BlocSign(), child: HalloPage());
   BlocProvider signin() =>
       BlocProvider<BlocSign>(bloc: BlocSign(), child: Signin());
   BlocProvider signup() =>

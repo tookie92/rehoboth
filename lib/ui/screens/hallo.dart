@@ -5,13 +5,12 @@ import 'package:amen/models/categorie.dart';
 import 'package:amen/ui/widgets/my_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HalloPage extends StatelessWidget {
-  final User? user;
+  //final User? user;
 
-  HalloPage(this.user);
+  //HalloPage(this.user);
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -164,7 +163,9 @@ class HalloPage extends StatelessWidget {
             children: [
               IconButton(
                   onPressed: () async {
-                    await _showMyUpdate(context, categorieModel);
+                    Navigator.pushReplacement(
+                        context, BlocRouter().editcatPage(categorieModel));
+                    // await _showMyUpdate(context, categorieModel);
                   },
                   icon: Icon(
                     Icons.edit,
@@ -186,49 +187,5 @@ class HalloPage extends StatelessWidget {
     );
 
     return item;
-  }
-
-  //update
-  Future<void> _showMyUpdate(
-      BuildContext context, CategorieModel categorieModel) async {
-    final _formKey = GlobalKey<FormState>();
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: Colors.amber,
-          title: Text('${categorieModel.title}'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Form(
-                  key: _formKey,
-                  child: MyTextField(
-                      onSaved: (newValue) => categorieModel.title = newValue,
-                      initialValue: '${categorieModel.title}',
-                      labelText: 'labelText',
-                      validator: (value) =>
-                          value!.isEmpty ? 'Please enter was' : null),
-                )
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: Text('Approve'),
-              onPressed: () async {
-                if (_formKey.currentState!.validate()) {
-                  _formKey.currentState!.save();
-                  await SignState().updateDate(categorieModel);
-                }
-
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
   }
 }
