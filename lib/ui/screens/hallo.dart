@@ -40,29 +40,30 @@ class HalloPage extends StatelessWidget {
                 ),
               );
             } else {
-              return Column(
+              return Stack(
                 children: [
-                  SizedBox(
-                    height: size.height * 0.4,
-                  ),
-                  Container(
-                    child: MyText(
-                      label: 'hallo ${truc!.user!.displayName}',
+                  Positioned(
+                    top: size.height * 0.15,
+                    left: size.width * 0.06,
+                    child: Container(
+                      child: MyText(
+                        label: 'hallo ${truc!.user!.displayName}',
+                      ),
                     ),
                   ),
-                  MyTextButton(
-                    onPressed: () async {
-                      SharedPreferences prefs =
-                          await SharedPreferences.getInstance();
-                      prefs.remove('email');
-                      await DbFire().signOut();
-                      Navigator.pushReplacement(
-                          context, BlocRouter().homePager());
-                    },
-                    label: 'Out',
-                    colorText: Colors.black,
-                    background: Colors.amber,
-                  )
+                  Positioned(
+                      bottom: size.height * 0.05,
+                      right: size.width * 0.04,
+                      child: IconButton(
+                          onPressed: () async {
+                            SharedPreferences prefs =
+                                await SharedPreferences.getInstance();
+                            prefs.remove('email');
+                          },
+                          icon: Icon(
+                            Icons.door_back,
+                            color: Colors.green,
+                          )))
                 ],
               );
             }
