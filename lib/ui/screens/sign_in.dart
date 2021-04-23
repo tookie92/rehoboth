@@ -69,13 +69,18 @@ class Signin extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20.0, vertical: 20.0),
                           child: MyTextField(
-                              controller: emailController, labelText: 'Email'),
+                              validator: (value) =>
+                                  value!.isEmpty ? 'Please enter was' : null,
+                              controller: emailController,
+                              labelText: 'Email'),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20.0, vertical: 25.0),
                           child: MyTextField(
-                              obscureText: false,
+                              validator: (value) =>
+                                  value!.isEmpty ? 'Please enter was' : null,
+                              obscureText: true,
                               controller: passwordController,
                               labelText: 'Password'),
                         ),

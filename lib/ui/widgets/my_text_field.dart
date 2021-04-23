@@ -6,6 +6,7 @@ class MyTextField extends StatelessWidget {
   final bool obscureText;
   final String? initialValue;
   final String? Function(String?)? onSaved;
+  final String? Function(String?)? validator;
   final String? labelText;
 
   MyTextField(
@@ -13,6 +14,7 @@ class MyTextField extends StatelessWidget {
       this.obscureText = false,
       this.initialValue,
       required this.labelText,
+      required this.validator,
       this.onSaved});
 
   @override
@@ -21,7 +23,7 @@ class MyTextField extends StatelessWidget {
       controller: controller,
       initialValue: initialValue,
       obscureText: obscureText,
-      validator: (value) => value!.isEmpty ? 'The Format is not correct' : null,
+      validator: validator,
       onSaved: onSaved,
       style: GoogleFonts.montserrat(color: Colors.white),
       decoration: InputDecoration(

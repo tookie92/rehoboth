@@ -1,6 +1,7 @@
 import 'package:amen/blocs/bloc_provider.dart';
 import 'package:amen/blocs/blocs.dart';
 import 'package:amen/blocs/blocsign.dart';
+import 'package:amen/models/categorie.dart';
 import 'package:amen/ui/screens/screens.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 

@@ -1,4 +1,5 @@
 import 'package:amen/blocs/bloc_router.dart';
+import 'package:amen/models/categorie.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -11,6 +12,7 @@ void main() async {
   var email = prefs.getString('email');
   print(email);
   User? user;
+
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     home: email == null ? BlocRouter().homePage() : BlocRouter().hallo(user),
