@@ -1,9 +1,7 @@
 import 'dart:async';
 
 import 'package:amen/blocs/bloc.dart';
-import 'package:amen/models/categorie.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 
 class BlocHome extends Bloc {
   final _streamController = StreamController<HomeState>();

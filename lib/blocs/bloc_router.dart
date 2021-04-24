@@ -4,7 +4,6 @@ import 'package:amen/blocs/blocsign.dart';
 import 'package:amen/models/categorie.dart';
 import 'package:amen/ui/screens/edit_page.dart';
 import 'package:amen/ui/screens/screens.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 
