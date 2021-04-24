@@ -8,6 +8,7 @@ import 'bloc.dart';
 
 class BlocSign extends Bloc {
   final _streamController = StreamController<SignState>();
+  final currentUser = FirebaseAuth.instance.currentUser;
 
   Sink<SignState> get sink => _streamController.sink;
   Stream<SignState> get stream => _streamController.stream;
@@ -15,10 +16,10 @@ class BlocSign extends Bloc {
   void init() {
     final resultat = SignState(
         isActive: true,
-        user: FirebaseAuth.instance.currentUser,
+        user: currentUser,
         categorielist: [],
-        collectionReference:
-            FirebaseFirestore.instance.collection('categories'),
+        collectionReference: FirebaseFirestore.instance
+            .collection('users/${currentUser!.uid}/tasks'),
         categorieModel: CategorieModel('', ''));
     sink.add(resultat);
   }
@@ -40,6 +41,8 @@ class SignState {
   List<CategorieModel>? categorielist;
   CollectionReference? collectionReference;
 
+  final currentUser = FirebaseAuth.instance.currentUser;
+
   SignState(
       {this.isActive = false,
       this.user,
@@ -48,7 +51,8 @@ class SignState {
       this.collectionReference});
 
   Future<void> addCategorie() async {
-    collectionReference = FirebaseFirestore.instance.collection('categories');
+    collectionReference = FirebaseFirestore.instance
+        .collection('users/${currentUser!.uid}/tasks');
 
     await collectionReference!
         .doc()
@@ -58,7 +62,8 @@ class SignState {
   }
 
   Future<void> deleteData(CategorieModel categorieModele) async {
-    collectionReference = FirebaseFirestore.instance.collection('categories');
+    collectionReference = FirebaseFirestore.instance
+        .collection('users/${currentUser!.uid}/tasks');
 
     await collectionReference!
         .doc(categorieModele.id)
@@ -68,12 +73,13 @@ class SignState {
   }
 
   Future<void> updateDate(CategorieModel categorieModele) async {
-    collectionReference = FirebaseFirestore.instance.collection('categories');
+    collectionReference = FirebaseFirestore.instance
+        .collection('users/${currentUser!.uid}/tasks');
 
     await collectionReference!
         .doc(categorieModele.id)
         .update(categorieModele.toJson())
-        .then((value) => print('Categories Updated'))
+        .then((value) => print('Categorie Updated'))
         .catchError((error) => print('$error'));
   }
 }

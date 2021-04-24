@@ -25,12 +25,12 @@ class MyTextField extends StatelessWidget {
       obscureText: obscureText,
       validator: validator,
       onSaved: onSaved,
-      style: GoogleFonts.montserrat(color: Colors.white),
+      style: GoogleFonts.montserrat(color: Colors.black),
       decoration: InputDecoration(
           filled: true,
-          fillColor: Colors.white24,
+          fillColor: Colors.white,
           labelText: labelText,
-          labelStyle: GoogleFonts.montserrat(color: Colors.white),
+          labelStyle: GoogleFonts.montserrat(color: Colors.black),
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(20.0),
               borderSide: BorderSide(color: Colors.deepPurple)),
