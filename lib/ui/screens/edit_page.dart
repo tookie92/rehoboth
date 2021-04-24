@@ -7,6 +7,8 @@ import 'package:amen/ui/widgets/my_text_field.dart';
 import 'package:amen/ui/widgets/my_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:date_time_picker/date_time_picker.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class EditPage extends StatelessWidget {
   final CategorieModel categorieModele;
@@ -47,10 +49,6 @@ class EditPage extends StatelessWidget {
                     SizedBox(
                       height: 200.0,
                     ),
-                    MyText(
-                      label: 'Text',
-                      color: Colors.white,
-                    ),
                     FutureBuilder<DocumentSnapshot>(
                         future: truc.collectionReference!
                             .doc(categorieModele.id)
@@ -88,23 +86,75 @@ class EditPage extends StatelessWidget {
   showThat(DocumentSnapshot res, BuildContext context) {
     CategorieModel categorieModel = CategorieModel.fromSnapshot(res);
     final _formKey = GlobalKey<FormState>();
+    // final size = MediaQuery.of(context).size;
 
     var item = Column(children: [
       MyText(
         label: 'Edit ${categorieModel.title}',
         color: Colors.white,
+        fontSize: 30.0,
+      ),
+      SizedBox(
+        height: 40.0,
       ),
       Form(
         key: _formKey,
-        child: MyTextField(
-          labelText: 'title',
-          validator: (value) => value!.isEmpty ? 'Pleaseee' : null,
-          initialValue: '${categorieModel.title}',
-          onSaved: (newValue) => categorieModel.title = newValue,
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: MyTextField(
+                labelText: 'title',
+                validator: (value) => value!.isEmpty ? 'Pleaseee' : null,
+                initialValue: '${categorieModel.title}',
+                onSaved: (newValue) => categorieModel.title = newValue,
+              ),
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: DateTimePicker(
+                  decoration: InputDecoration(
+                      suffixIcon: Icon(Icons.calendar_today),
+                      filled: true,
+                      fillColor: Colors.white,
+                      labelText: 'Jour',
+                      labelStyle: GoogleFonts.montserrat(color: Colors.black),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                          borderSide: BorderSide(color: Colors.deepPurple)),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                          borderSide: BorderSide(color: Colors.white)),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                          borderSide: BorderSide(color: Colors.white))),
+                  style: GoogleFonts.montserrat(color: Colors.black),
+                  initialValue: '${categorieModel.jour}',
+                  firstDate: DateTime(2000),
+                  lastDate: DateTime(2100),
+                  dateLabelText: 'Date',
+                  onChanged: (val) => print(val),
+                  validator: (val) {
+                    print(val);
+                    return null;
+                  },
+                  onSaved: (newValue) => categorieModel.jour = newValue),
+            )
+          ],
         ),
       ),
+      SizedBox(
+        height: 40.0,
+      ),
       Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.4,
+          ),
           MyTextButton(
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {

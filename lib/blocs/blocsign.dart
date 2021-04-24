@@ -20,7 +20,7 @@ class BlocSign extends Bloc {
         categorielist: [],
         collectionReference: FirebaseFirestore.instance
             .collection('users/${currentUser!.uid}/tasks'),
-        categorieModel: CategorieModel('', ''));
+        categorieModel: CategorieModel('', '', ''));
     sink.add(resultat);
   }
 
