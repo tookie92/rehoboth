@@ -116,6 +116,7 @@ class EditPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: DateTimePicker(
+                  type: DateTimePickerType.date,
                   decoration: InputDecoration(
                       suffixIcon: Icon(Icons.calendar_today),
                       filled: true,
@@ -132,7 +133,9 @@ class EditPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20.0),
                           borderSide: BorderSide(color: Colors.white))),
                   style: GoogleFonts.montserrat(color: Colors.black),
-                  initialValue: '${categorieModel.jour}',
+                  initialValue: categorieModel.jour == null
+                      ? DateTime.now().toString()
+                      : '${categorieModel.jour}',
                   firstDate: DateTime(2000),
                   lastDate: DateTime(2100),
                   dateLabelText: 'Date',
