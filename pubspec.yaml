@@ -31,6 +31,7 @@ dependencies:
   firebase_core: ^1.0.3
   fluttertoast: ^8.0.4
   google_fonts: ^2.0.0
+  syncfusion_flutter_calendar: ^19.1.57
   shared_preferences: ^2.0.5
 
 dev_dependencies:

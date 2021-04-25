@@ -5,6 +5,7 @@ import 'package:amen/models/categorie.dart';
 import 'package:amen/ui/widgets/my_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class HalloPage extends StatelessWidget {
   @override
@@ -104,6 +105,34 @@ class HalloPage extends StatelessWidget {
                     ),
                   ),
                   Positioned(
+                      top: size.height * 0.56,
+                      //  left: size.width * 0.1,
+                      child: Container(
+                        height: 300.0,
+                        width: size.width,
+                        decoration: BoxDecoration(color: Colors.amber),
+                        child: Scrollbar(
+                          child: SfCalendar(
+                            view: CalendarView.month,
+                            timeSlotViewSettings: TimeSlotViewSettings(
+                                startHour: 9,
+                                endHour: 16,
+                                nonWorkingDays: <int>[
+                                  DateTime.friday,
+                                  DateTime.saturday
+                                ]),
+                            dataSource: MeetingDataSource(_getDataSource()),
+                            monthViewSettings: MonthViewSettings(
+                                numberOfWeeksInView: 2,
+                                showAgenda: true,
+                                appointmentDisplayMode:
+                                    MonthAppointmentDisplayMode.appointment),
+                          ),
+                        ),
+                      )),
+
+                  //fake floatbutton
+                  Positioned(
                       bottom: size.height * 0.05,
                       right: size.width * 0.04,
                       child: Container(
@@ -185,7 +214,9 @@ class HalloPage extends StatelessWidget {
                               Icons.add,
                               color: Colors.white,
                             )),
-                      ))
+                      )),
+
+                  //ende fake float button
                 ],
               );
             }
@@ -195,7 +226,7 @@ class HalloPage extends StatelessWidget {
     );
   }
 
-// Da sind die Categories
+  // Da sind die Categories
   showCategorie(DocumentSnapshot res, BuildContext context) {
     CategorieModel categorieModel = CategorieModel.fromSnapshot(res);
     final size = MediaQuery.of(context).size;
@@ -240,6 +271,17 @@ class HalloPage extends StatelessWidget {
               ),
             ),
             Positioned(
+              top: size.height * 0.01,
+              right: size.width * 0.03,
+              child: MyText(
+                label: categorieModel.jour == null
+                    ? 'no date'
+                    : '${categorieModel.jour}',
+                color: Colors.white,
+                fontSize: 15.0,
+              ),
+            ),
+            Positioned(
               top: size.height * 0.05,
               child: Row(
                 children: [
@@ -275,5 +317,66 @@ class HalloPage extends StatelessWidget {
         ));
 
     return item;
+  }
+}
+
+// **** les donnes qui vont dans le calendrier ******//
+
+List<Meeting> _getDataSource() {
+  final List<Meeting> meetings = <Meeting>[];
+  final DateTime today = DateTime.now();
+  final DateTime startTime =
+      DateTime(today.year, today.month, today.day, 9, 0, 0);
+  final DateTime startTime2 = DateTime.parse('2021-04-26 20:27:00Z');
+  final DateTime endTime = startTime.add(const Duration(hours: 3));
+  meetings
+      .add(Meeting('aos', startTime, endTime, const Color(0xFF0F8644), false));
+  meetings.add(
+      Meeting('second', startTime2, endTime, const Color(0xFFEF7B45), false));
+  return meetings;
+  // ignore: dead_code
+  print('${startTime2.toString()}');
+}
+
+// ***** le model pour le calendrier *****//
+class Meeting {
+  Meeting(this.eventName, this.from, this.to, this.background, this.isAllDay);
+
+  String eventName;
+  DateTime from;
+  DateTime to;
+  Color background;
+  bool isAllDay;
+}
+
+//***** et la les reglages du calendrier *****////
+class MeetingDataSource extends CalendarDataSource {
+  MeetingDataSource(List<Meeting> source) {
+    appointments = source;
+  }
+
+  @override
+  DateTime getStartTime(int index) {
+    return appointments![index].from;
+  }
+
+  @override
+  DateTime getEndTime(int index) {
+    return appointments![index].to;
+  }
+
+  @override
+  String getSubject(int index) {
+    return appointments![index].eventName;
+  }
+
+  @override
+  Color getColor(int index) {
+    return appointments![index].background;
+  }
+
+  @override
+  bool isAllDay(int index) {
+    return appointments![index].isAllDay;
   }
 }

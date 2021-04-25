@@ -5,6 +5,7 @@ import 'package:amen/models/categorie.dart';
 import 'package:amen/ui/widgets/my_text.dart';
 import 'package:amen/ui/widgets/my_text_field.dart';
 import 'package:amen/ui/widgets/my_widgets.dart';
+import 'package:amen/ui/widgets/time_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:date_time_picker/date_time_picker.dart';
@@ -114,38 +115,15 @@ class EditPage extends StatelessWidget {
               height: 20.0,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: DateTimePicker(
-                  type: DateTimePickerType.date,
-                  decoration: InputDecoration(
-                      suffixIcon: Icon(Icons.calendar_today),
-                      filled: true,
-                      fillColor: Colors.white,
-                      labelText: 'Jour',
-                      labelStyle: GoogleFonts.montserrat(color: Colors.black),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                          borderSide: BorderSide(color: Colors.deepPurple)),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                          borderSide: BorderSide(color: Colors.white)),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                          borderSide: BorderSide(color: Colors.white))),
-                  style: GoogleFonts.montserrat(color: Colors.black),
-                  initialValue: categorieModel.jour == null
-                      ? DateTime.now().toString()
-                      : '${categorieModel.jour}',
-                  firstDate: DateTime(2000),
-                  lastDate: DateTime(2100),
-                  dateLabelText: 'Date',
-                  onChanged: (val) => print(val),
-                  validator: (val) {
-                    print(val);
-                    return null;
-                  },
-                  onSaved: (newValue) => categorieModel.jour = newValue),
-            )
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: MyDatePicker(
+                    labelText: 'Jour',
+                    initialValue: categorieModel.jour == ''
+                        ? '${DateTime.now().toString()}'
+                        : '${categorieModel.jour}',
+                    validator: (value) =>
+                        value!.isEmpty ? 'Date is null' : null,
+                    onSaved: (newValue) => categorieModel.jour = newValue))
           ],
         ),
       ),
