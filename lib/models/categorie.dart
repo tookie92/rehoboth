@@ -7,19 +7,19 @@ class CategorieModel {
   String? author;
   String? jour;
   String? fin;
-  String? color;
-  String? isAllday;
 
   CategorieModel(
-      this.title, this.author, this.jour, this.fin, this.color, this.isAllday);
+    this.title,
+    this.author,
+    this.jour,
+    this.fin,
+  );
 
   CategorieModel.fromSnapshot(DocumentSnapshot snapshot)
       : id = snapshot.id,
         title = snapshot.data()!['title'],
         author = snapshot.data()!['author'],
         jour = snapshot.data()!['jour'],
-        color = snapshot.data()!['color'],
-        isAllday = snapshot.data()!['isAllday'],
         fin = snapshot.data()!['fin'];
 
   Map<String, dynamic> toJson() {
@@ -27,7 +27,6 @@ class CategorieModel {
       'title': this.title,
       'author': FirebaseAuth.instance.currentUser!.displayName,
       'jour': this.jour,
-      'color': this.color,
       'fin': this.fin
     };
     if (id != null) {
